@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-
+const cors = require('cors');
 const port = process.env.PORT || 3000;
 
 const rutasUsuarios = require('./src/routes/usuarios');
 const rutasRestaurantes = require('./src/routes/restaurantes');
 const rutasRecetas = require('./src/routes/recetas');
 const rutasBusqueda = require('./src/routes/busquedas');
-
+app.use(cors());
 app.use(express.json());
 app.use('/', rutasUsuarios);
 app.use('/', rutasRestaurantes);
@@ -17,7 +17,8 @@ app.use('/', rutasBusqueda);
 
 
 app.get('/', (req, res) => {
-    res.send('api works');
+    const url = __dirname + '/src/views/index.html';
+    res.sendFile(url);
 });
 
 //mongodb+srv://iteso2022:ITESO1234@cluster0.jqhyj.mongodb.net/agenda?retryWrites=true&w=majority
